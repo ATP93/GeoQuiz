@@ -18,7 +18,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mNextButton;
     private TextView mQuestionTextView;
 
-    private Question[] mQuestionBank = new Question[] {
+    private static final Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
             new Question(R.string.question_mideast, false),
@@ -39,7 +39,6 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-        updateQuestion();
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +64,8 @@ public class QuizActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
+
+        updateQuestion();
     }
 
     @Override
@@ -76,6 +77,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
+        mTrueButton.setEnabled(!mQuestionBank[mCurrentIndex].isAnswered());
+        mFalseButton.setEnabled(!mQuestionBank[mCurrentIndex].isAnswered());
         mQuestionTextView.setText(question);
     }
 
@@ -89,6 +92,10 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             toastMessageResId = R.string.incorrect_toast;
         }
+
+        mQuestionBank[mCurrentIndex].setAnswered(true);
+        mFalseButton.setEnabled(false);
+        mTrueButton.setEnabled(false);
 
         Toast.makeText(this, toastMessageResId, Toast.LENGTH_SHORT)
                 .show();
