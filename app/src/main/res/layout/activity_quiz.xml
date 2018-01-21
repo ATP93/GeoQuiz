@@ -56,6 +56,8 @@
         android:text="@string/next_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:drawablePadding="4dp"
+        android:drawableRight="@drawable/arrow_right"/>
 
 </android.support.constraint.ConstraintLayout>
